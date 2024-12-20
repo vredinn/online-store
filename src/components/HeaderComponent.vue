@@ -3,8 +3,8 @@
         <div class="container header__container d-flex justify-content-between align-items-center">
             <router-link to="/" class="header__logo">Магазин</router-link>
             <nav class="navbar d-flex">
-                <router-link to="/products" class="btn me-3">Каталог</router-link>
-                <router-link to="/cart" class="btn">
+                <router-link active-class="navbar__link--active" to="/products" class="btn me-3">Каталог</router-link>
+                <router-link active-class="navbar__link--active" to="/cart" class="btn">
                     <img src="@/assets/icons/cart.svg" alt="Cart" class="cart-icon" />
                 </router-link>
             </nav>
@@ -24,10 +24,12 @@
     color: white;
     text-decoration: none;
 }
-
 .cart-icon {
   width: 30px;
   height: 30px;
   display: block;
+}
+.navbar__link--active{    
+  background-color: var(--color-sub);
 }
 </style>

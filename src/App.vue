@@ -19,6 +19,7 @@ export default {
   --color-text: #0b1c2c;
   --color-text-sub : #949494;
   --color-main: #4a54af;  
+  --color-main-dark: #3f4793;  
   --color-sub: #3c884e;
   color: var(--color-text);
 }
@@ -42,7 +43,7 @@ export default {
 
 .btn:hover{
   color: #fff;
-  background-color: var(--color-sub);
+  background-color: var(--color-main-dark);
   box-shadow: 0 5px 15px -15px rgba(0, 0, 0, .25);
   transform: translateY(-2px);
 }
