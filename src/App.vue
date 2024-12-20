@@ -1,30 +1,50 @@
 <template>
-  <nav>
-    <router-link to="/products">Каталог</router-link> |
-    <router-link to="/cart">Корзина</router-link>
-  </nav>
+  <HeaderComponent />
   <router-view/>
 </template>
 
+<script>
+import HeaderComponent from './components/HeaderComponent.vue';
+
+export default {
+  components: {
+    HeaderComponent,
+  }
+};
+</script>
+
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  font-family: "Nunito", sans-serif;
+  --color-text: #0b1c2c;
+  --color-text-sub : #949494;
+  --color-main: #4a54af;  
+  --color-sub: #3c884e;
+  color: var(--color-text);
+}
+.btn {
+  position: relative;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-main);
+  text-decoration: none;
+  color: #fff;
+  height: 40px; 
 }
 
-nav {
-  padding: 30px;
+.btn:hover{
+  color: #fff;
+  background-color: var(--color-sub);
+  box-shadow: 0 5px 15px -15px rgba(0, 0, 0, .25);
+  transform: translateY(-2px);
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
