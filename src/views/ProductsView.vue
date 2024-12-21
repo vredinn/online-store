@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class="title mb-2">Каталог товаров</h1>
 
-        <div v-if="isLoading" class="loading-container">
+        <div v-if="isLoading" class="spinner__container">
             <div class="spinner"></div>
         </div>
 
@@ -78,7 +78,7 @@ export default {
             .then(([products, categories, exchangeRateData]) => {
                 this.products = products;
                 this.categories = categories;
-                this.exchangeRate = exchangeRateData.Valute?.USD?.Value || null;
+                this.exchangeRate = exchangeRateData.Valute.USD.Value;
             })
             .catch(error => {
                 console.error("Ошибка загрузки данных:", error);
@@ -114,28 +114,5 @@ export default {
     .select__option{
         font-size: 1rem;
         color: var(--color-text)
-    }
-
-    .loading-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 300px;
-    }
-    .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid var(--color-text-sub);
-        border-top: 5px solid var(--color-main);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
     }
 </style>

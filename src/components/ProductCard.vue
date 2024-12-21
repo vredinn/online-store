@@ -64,39 +64,6 @@ export default {
 </script>
 
 <style scoped>
-.popup-notification {
-    position: fixed;
-    width: fit-content;
-    top: 60px;
-    right: 20px;
-    background: var(--color-main);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 1rem;
-    z-index: 9999;
-    animation: fadeInOut 3s forwards;
-    opacity: 1;
-}
-
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    10% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    90% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-}
 
 .card {
     display: flex;
