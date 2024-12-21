@@ -6,10 +6,14 @@ import CartView from '../views/CartView.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/products',
+    redirect: '/products/1',
   },
   {
     path: '/products',
+    redirect: '/products/1',
+  },
+  {
+    path: '/products/:id',
     name: 'products',
     component: ProductsView,
   },
