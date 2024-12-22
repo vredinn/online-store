@@ -30,11 +30,34 @@
 
             <div class="row">
                 <product-card
-                    v-for="product in filteredProducts"
+                    v-for="product in paginatedProducts"
                     :key="product.id"
                     :product="product"
                     :exchangeRate="exchangeRate"
                 />
+            </div>
+            <div class="pagination d-flex justify-content-center mb-4">
+                <button
+                    class="btn btn--pagination-left"
+                    :disabled="currentPage === 1"
+                    :class="{'disabled' : currentPage === 1}"
+                    @click="changePage(currentPage - 1)"
+                ></button>
+                <button
+                    class="btn"
+                    v-for="page in totalPages"
+                    :key="page"
+                    :class="{ active: currentPage === page }"
+                    @click="changePage(page)"
+                >
+                    {{ page }}
+                </button>
+                <button
+                    class="btn btn--pagination-right"
+                    :class="{'disabled' : currentPage === totalPages}"
+                    :disabled="currentPage === totalPages"
+                    @click="changePage(currentPage + 1)"
+                ></button>
             </div>
         </div>
     </div>
@@ -53,6 +76,8 @@ export default {
             searchQuery: "",
             isLoading: false,
             exchangeRate: 0,
+            currentPage: parseInt(this.$route.params.page),
+            itemsPerPage: 10
         };
     },
     computed: {
@@ -62,7 +87,14 @@ export default {
                     (!this.selectedCategory || product.category === this.selectedCategory) &&
                     (!this.searchQuery || product.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
             );
-        }
+        },
+        paginatedProducts() {
+            const start = (this.currentPage - 1) * 10;
+            return this.filteredProducts.slice(start, start + 10);
+        },
+        totalPages() {
+            return Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+        },
     },
     methods: {
         loadData() {
@@ -86,33 +118,72 @@ export default {
             .finally(() => {
                 this.isLoading = false;
             });
-        }
+        },
+        
+        changePage(page) {
+            this.$router.push({ path: `/products/${page}` });
+            this.currentPage = page;
+        },
     },
     mounted() {
         this.loadData();
-    }
+    },
+    watch: {
+        searchQuery() {
+            this.changePage(1);
+        },
+        selectedCategory() {
+            this.changePage(1);
+        },
+    },
 };
 </script>
 
 <style scoped>
-    .select,
-    .search-field {
-        font-size: 1rem;
-        width: 100%;
-        height: 40px;
-        border-radius: 8px;
-        border: 2px solid var(--color-main);
-        outline: none;
-    }
+.select,
+.search-field {
+    font-size: 1rem;
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid var(--color-main);
+    outline: none;
+}
 
-    .select {
-        color: var(--color-main);
-        font-weight: bold;
+.select {
+    color: var(--color-main);
+    font-weight: bold;
+}
+.select__option{
+    font-size: 1rem;
+    color: var(--color-text)
+}
+.pagination{
+    gap:12px;
+    flex-wrap: wrap;
+}
+.btn--pagination-left::before{
+    content: "Предыдущая";
+}
+.btn--pagination-right::before{
+    content: "Следующая";
+}
+@media (max-width: 768px) {
+    .btn--pagination-left::before{
+        content: "<";
     }
-
-
-    .select__option{
-        font-size: 1rem;
-        color: var(--color-text)
+    .btn--pagination-right::before{
+        content: ">";
     }
+}
+.active {
+    background-color: var(--color-sub);
+    cursor: default;
+}
+.disabled {
+    background-color: #fff;
+    color: var(--color-text-sub);
+    border: 2px solid var(--color-main);
+    cursor: default;
+}
 </style>

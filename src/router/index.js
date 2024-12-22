@@ -13,9 +13,9 @@ const routes = [
     redirect: '/products/1',
   },
   {
-    path: '/products/:id',
+    path: '/products/:page',
     name: 'products',
-    component: ProductsView,
+    component: ProductsView
   },
   {
     path: '/product/:id',
