@@ -21,6 +21,8 @@ export default {
     --color-main: #4a54af;  
     --color-main-dark: #133e72;  
     --color-sub: #3c8867;
+    --color-red: #ac5c5c; 
+    --color-red-dark: #853e3e; 
     color: var(--color-text);
 }
 
@@ -34,7 +36,7 @@ export default {
     font-weight: 500;
     border: none;
     border-radius: 8px;
-    padding: 10px 20px;
+    padding: 0 10px;
     cursor: pointer;
     transition: all .3s ease-in-out;
     display: inline-flex;
@@ -45,10 +47,39 @@ export default {
     color: #fff;
     height: 40px; 
 }
-
 .btn:hover {
     color: #fff;
     background-color: var(--color-main-dark);
+}
+.btn--w100{
+    width: 100%;
+}
+.btn--red{
+    background-color: var(--color-red);
+    width: 100%;
+}
+.btn--red:hover{
+    background-color: var(--color-red-dark);
+}
+.btn--square{
+    width: 40px;
+    padding: 0;
+}
+.active {
+    background-color: var(--color-sub) !important;
+    cursor: default !important;
+}
+.disabled  {
+    background-color: #fff !important;
+    color: var(--color-text-sub) !important;
+    box-shadow: inset 0 0 0 2px var(--color-main);
+    cursor: default !important;
+}
+.btn__container{
+    padding: 10px;
+    position: sticky;
+    bottom: 0;
+    z-index: 1020;    
 }
 .spinner__container {
     display: flex;

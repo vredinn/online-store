@@ -8,12 +8,41 @@
             <nav class="navbar d-flex">
                 <router-link active-class="navbar__link--active" to="/products" class="btn me-3" :class="{ 'navbar__link--active': $route.path.startsWith('/products') }">Каталог</router-link>
                 <router-link active-class="navbar__link--active" to="/cart" class="btn">
+                    <span v-if="cartCount > 0" class="cart-count me-2">{{ cartCount }}</span>
                     <img src="@/assets/icons/cart.svg" alt="Cart" class="cart-icon" />
                 </router-link>
             </nav>
         </div>
     </header>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            cart: JSON.parse(localStorage.getItem("cart")) || [],
+        };
+    },
+    computed: {
+        cartCount() {
+            return this.cart.reduce((total, item) => total + item.quantity, 0);
+        },
+    },
+    watch: {
+        cart(newCart) {
+            localStorage.setItem("cart", JSON.stringify(newCart));
+        },
+    },
+    methods: {
+        updateCartFromLocalStorage() {
+            this.cart = JSON.parse(localStorage.getItem("cart")) || [];
+        },
+    },
+    mounted() {
+        window.addEventListener("cartUpdate", this.updateCartFromLocalStorage);
+    }
+};
+</script>
 
 <style scoped>
 .header{

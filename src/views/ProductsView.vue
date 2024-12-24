@@ -44,7 +44,7 @@
                     @click="changePage(currentPage - 1)"
                 ></button>
                 <button
-                    class="btn"
+                    class="btn btn--square"
                     v-for="page in totalPages"
                     :key="page"
                     :class="{ active: currentPage === page }"
@@ -76,7 +76,6 @@ export default {
             searchQuery: "",
             isLoading: false,
             exchangeRate: 0,
-            currentPage: parseInt(this.$route.params.page),
             itemsPerPage: 10
         };
     },
@@ -94,7 +93,8 @@ export default {
         },
         totalPages() {
             return Math.ceil(this.filteredProducts.length / this.itemsPerPage);
-        },
+        },        
+        currentPage(){ return parseInt(this.$route.params.page)},
     },
     methods: {
         loadData() {
@@ -122,7 +122,6 @@ export default {
         
         changePage(page) {
             this.$router.push({ path: `/products/${page}` });
-            this.currentPage = page;
         },
     },
     mounted() {
@@ -149,7 +148,6 @@ export default {
     border: 2px solid var(--color-main);
     outline: none;
 }
-
 .select {
     color: var(--color-main);
     font-weight: bold;
@@ -175,15 +173,5 @@ export default {
     .btn--pagination-right::before{
         content: ">";
     }
-}
-.active {
-    background-color: var(--color-sub);
-    cursor: default;
-}
-.disabled {
-    background-color: #fff;
-    color: var(--color-text-sub);
-    border: 2px solid var(--color-main);
-    cursor: default;
 }
 </style>

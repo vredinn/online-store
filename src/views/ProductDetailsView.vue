@@ -34,9 +34,9 @@
                         </div>
                         <span class="product__text">{{ product.rating.rate }} ( {{ product.rating.count }} оценок)</span>
                     </div>                    
-                    <div class="btn-container">            
+                    <div class="btn__container">            
                         <div class="col-12 d-flex justify-content-center">
-                            <button class="btn btn-center" @click="addToCart()">
+                            <button class="btn btn-center" @click="addToCart(product)">
                                 Добавить в корзину
                             </button>
                         </div>
@@ -87,7 +87,21 @@ export default {
         convertPriceToRUB(priceInUSD) {
             return (priceInUSD * this.exchangeRate).toFixed(2);
         },
-        addToCart() {
+        addToCart(product) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const productInCart = cart.find((item) => item.id === product.id);
+
+            if (productInCart) {
+                productInCart.quantity++;
+            } else {
+                cart.push({
+                    id: product.id,
+                    quantity: 1,
+                });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            window.dispatchEvent(new Event("cartUpdate"));
             this.showPopup();
         },
         showPopup() {
@@ -140,11 +154,5 @@ export default {
 .product__img {
     max-width: 100%;
     height: auto;
-}
-.btn-container{
-    padding: 10px;
-    position: sticky;
-    bottom: 0;
-    z-index: 1020;    
 }
 </style>

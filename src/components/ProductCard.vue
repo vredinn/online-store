@@ -28,7 +28,7 @@
                 <span class="rating-count">({{ product.rating.rate }})</span>
             </div>
     
-            <button class="btn mt-auto" @click.stop="addToCart()">
+            <button class="btn mt-auto" @click.stop="addToCart(product)">
                 Добавить в корзину
             </button>
         </div>
@@ -50,9 +50,23 @@ export default {
         convertPriceToRUB(priceInUSD) {
             return (priceInUSD * this.exchangeRate).toFixed(2);
         },
-        addToCart() {
+        addToCart(product) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const productInCart = cart.find((item) => item.id === product.id);
+
+            if (productInCart) {
+                productInCart.quantity++;
+            } else {
+                cart.push({
+                    id: product.id,
+                    quantity: 1,
+                });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            window.dispatchEvent(new Event("cartUpdate"));
             this.showPopup();
-        },  
+        },
         showPopup() {
             this.isPopupVisible = true;
             setTimeout(() => {
