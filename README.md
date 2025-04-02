@@ -1,24 +1,15 @@
-# online-store
+## online-store
+Онлайн-магазин с поиском товаров и корзиной
 
-## Project setup
-```
-npm install
-```
+# Инструменты
+- VueJS - frontend фреймворк
+- fakestoreapi - API для получения данных о товарах
+- Bootstrap Grid - сетка для верстки страниц приложения
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Функции
+- Отображение списка товаров
+- Поиск товаров по названию
+- Фильтрация товаров по категориям
+- Страница товара
+- Возможность довабвления товара в корзину
+- Страница корзины с возможностью изменить количество товара или удалить товар (корзина использует localstorage)
